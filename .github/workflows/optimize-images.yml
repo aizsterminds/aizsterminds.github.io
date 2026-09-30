@@ -15,8 +15,12 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y webp
       - name: Convert PNG assets to WebP
         run: |
-          for f in logo zahra abiha shyna momin noor work-1 elaris; do
-            cwebp -quiet -q 82 "$f.png" -o "$f.webp"
+          cwebp -quiet -q 78 -resize 1000 0 logo.png -o logo.webp
+          for f in zahra abiha shyna momin noor; do
+            cwebp -quiet -q 76 -resize 900 0 "$f.png" -o "$f.webp"
+          done
+          for f in work-1 elaris; do
+            cwebp -quiet -q 78 -resize 1100 0 "$f.png" -o "$f.webp"
           done
           sed -i 's/logo\.png/logo.webp/g; s/zahra\.png/zahra.webp/g; s/abiha\.png/abiha.webp/g; s/shyna\.png/shyna.webp/g; s/momin\.png/momin.webp/g; s/noor\.png/noor.webp/g; s/work-1\.png/work-1.webp/g; s/elaris\.png/elaris.webp/g' index.html
       - name: Commit optimized assets
